@@ -21,6 +21,7 @@ let package = Package(
     .library(name: "ComplexModule", targets: ["ComplexModule"]),
     .library(name: "Numerics", targets: ["Numerics"]),
     .library(name: "RealModule", targets: ["RealModule"]),
+    .library(name: "Roots", targets: ["Roots"])
   ],
   
   targets: [
@@ -46,6 +47,12 @@ let package = Package(
     .target(
       name: "RealModule",
       dependencies: ["_NumericsShims"],
+      exclude: excludedFilenames
+    ),
+    
+    .target(
+      name: "Roots",
+      dependencies: ["RealModule"],
       exclude: excludedFilenames
     ),
     
@@ -78,6 +85,12 @@ let package = Package(
     .testTarget(
       name: "RealTests",
       dependencies: ["_TestSupport"],
+      exclude: ["CMakeLists.txt"]
+    ),
+    
+    .testTarget(
+      name: "RootsTests",
+      dependencies: ["Roots", "_TestSupport"],
       exclude: ["CMakeLists.txt"]
     ),
     
